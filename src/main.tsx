@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme.ts';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <RouterProvider router={router} />
     </ChakraProvider>
   </React.StrictMode>
 );
