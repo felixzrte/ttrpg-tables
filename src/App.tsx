@@ -1,23 +1,50 @@
-import { Button, Container, Box, Image } from '@chakra-ui/react';
-import { Heading } from '@chakra-ui/react';
-import logo from '../public/tlogo.svg';
+import { useCallback, useEffect, useState } from 'react';
+import { supabase } from './providers/supabaseClient';
+import { Table } from './types/collection';
+import {
+  CardBody,
+  Heading,
+  Card,
+  Text,
+  OrderedList,
+  ListItem,
+} from '@chakra-ui/react';
 
 function App() {
+  const [tables, setTables] = useState<Table[]>([]);
+
+  const fetcher = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('table')
+      .select(`id, name, items, dice, description, source (id, name)`);
+    if (error) {
+      console.log('error', error);
+    } else {
+      setTables(data);
+    }
+  }, []);
+  useEffect(() => {
+    fetcher();
+  }, [fetcher]);
+
   return (
     <>
-      <Image src={logo} w={100} h={100}/>
-      <Container>
-        <Box textAlign={{ base: 'center', md: 'start' }}>
-          <Heading pb={4}>
-            Providing an easy way to find the tables you need for your next game
-          </Heading>
-          <Button variant="outline" borderColor="gray.500">
-            Get Started &rarr;
-          </Button>
-        </Box>
-      </Container>
+      {tables.map((table) => (
+        <Card key={table.id}>
+          <CardBody>
+            <Heading>{table.name}</Heading>
+            <Text>From: {table.source.name}</Text>
+            <Text>{table.description}</Text>
+            <Text>d{table.dice}</Text>
+            <OrderedList>
+              {table.items.map((type, index) => {
+                return <ListItem key={index}>{type}</ListItem>;
+              })}
+            </OrderedList>
+          </CardBody>
+        </Card>
+      ))}
     </>
   );
 }
-
 export default App;
