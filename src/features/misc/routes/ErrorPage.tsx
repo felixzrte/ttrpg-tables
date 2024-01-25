@@ -1,7 +1,7 @@
 import { Container, Heading, Text } from '@chakra-ui/react';
 import { useRouteError } from 'react-router-dom';
 
-export default function ErrorPage() {
+export const ErrorPage = () => {
   const error = useRouteError();
 
   return (
@@ -13,4 +13,4 @@ export default function ErrorPage() {
       <Text textStyle="p">{error.statusText || error.message}</Text>
     </Container>
   );
-}
+};

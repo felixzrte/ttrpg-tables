@@ -11,9 +11,9 @@ export interface Database {
     Tables: {
       sources: {
         Row: {
-          description: string | null
+          description: string
           id: number
-          name: string | null
+          name: string
         }
         Insert: {
           description?: string | null
@@ -29,12 +29,12 @@ export interface Database {
       }
       table: {
         Row: {
-          description: string | null
-          dice: number | null
+          description: string 
+          dice: number 
           id: number
           items: string[]
-          name: string | null
-          source_id: number | null
+          name: string 
+          source_id: number 
         }
         Insert: {
           description?: string | null

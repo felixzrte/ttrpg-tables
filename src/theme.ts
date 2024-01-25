@@ -20,8 +20,8 @@ const Button = defineStyleConfig({
 const theme = extendTheme({
   textStyles: {
     p: {
-      fontFamily: 'Gontserrat'
-    }
+      fontFamily: 'Gontserrat',
+    },
   },
   colors: {
     body: '#FFFAF0',
@@ -35,7 +35,6 @@ const theme = extendTheme({
         bg: 'body',
         color: 'text',
       },
-      
     },
   },
 });
